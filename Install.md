@@ -103,7 +103,9 @@ scp root@control-plane:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 
 ```
-**7) Install Dashboard**  
-`kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml`  
-**v2.4.0.** - write actual version
+**7) Install Dashboard**
+The dashboard will be accessible from the localhost:
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml`  
+The dashboard will be accessible remotely:  
+`kubectl --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'`  
 ***
