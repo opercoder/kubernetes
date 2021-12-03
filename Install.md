@@ -108,13 +108,14 @@ The dashboard will be accessible from the localhost:
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml`  
 The dashboard will be accessible remotely:  
 `kubectl --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'`  
-Create a patch file:
-`$ nano nodeport_dashboard_patch.yaml
+Create a patch file:  
+``` bash
+$ nano nodeport_dashboard_patch.yaml
 spec:
   ports:
   - nodePort: 32000
     port: 443
     protocol: TCP
     targetPort: 8443`
-
+```
 ***
