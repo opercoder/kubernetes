@@ -105,9 +105,13 @@ kubectl --kubeconfig ./admin.conf get nodes
 ```
 **7) Install Dashboard**
 The dashboard will be accessible from the localhost:
+``` bash
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml`  
+```
 The dashboard will be accessible remotely:  
-`kubectl --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'`  
+``` bash
+kubectl --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'`  
+```
 Create a patch file:  
 ``` bash
 $ nano nodeport_dashboard_patch.yaml
