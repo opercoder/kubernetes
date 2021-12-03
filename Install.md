@@ -106,7 +106,7 @@ kubectl --kubeconfig ./admin.conf get nodes
 **7) Install Dashboard**
 The dashboard will be accessible from the localhost:
 ``` bash
-`kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml`  
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml  
 ```
 The dashboard will be accessible remotely:  
 ``` bash
