@@ -104,5 +104,6 @@ kubectl --kubeconfig ./admin.conf get nodes
 
 ```
 **7) Install Dashboard**  
-`kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.4.0/aio/deploy/recommended.yaml`
+`kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/**v2.4.0**/aio/deploy/recommended.yaml`
+**v2.4.0.** - write actual version
 ***
