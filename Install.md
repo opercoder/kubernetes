@@ -103,7 +103,7 @@ scp root@control-plane:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 
 ```
-**7) Install Dashboard**  
+**7) Install Dashboard:**  
 The dashboard will be accessible from the localhost:
 ``` bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml  
@@ -112,7 +112,7 @@ The dashboard will be accessible remotely:
 ``` bash
 kubectl --namespace kubernetes-dashboard patch svc kubernetes-dashboard -p '{"spec": {"type": "NodePort"}}'`  
 ```
-Create a patch file:  
+Create the patch file:  
 ``` bash
 $ nano nodeport_dashboard_patch.yaml
 spec:
@@ -121,5 +121,20 @@ spec:
     port: 443
     protocol: TCP
     targetPort: 8443`
+```
+Apply the patch:
+``` bash
+kubectl -n kubernetes-dashboard patch svc kubernetes-dashboard --patch "$(cat nodeport_dashboard_patch.yaml)"  
+```
+Confirm thet the service was actually created:
+``` bash
+$ kubectl get service -n kubernetes-dashboard  
+NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+dashboard-metrics-scraper   ClusterIP   10.103.159.77   <none>        8000/TCP        8m40s
+kubernetes-dashboard        NodePort    10.101.194.22   <none>        443:32000/TCP   8m40s
+```
+The dashboard is available on the port 32000:
+``` bash
+https://<ip or domain-name>:32000
 ```
 ***
