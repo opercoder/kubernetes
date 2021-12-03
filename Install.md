@@ -103,7 +103,7 @@ scp root@control-plane:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 
 ```
-**7) Install Dashboard**
+**7) Install Dashboard**  
 The dashboard will be accessible from the localhost:
 ``` bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml  
