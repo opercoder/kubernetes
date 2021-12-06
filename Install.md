@@ -138,7 +138,7 @@ The dashboard is available on the port 32000:
 https://<ip or domain-name>:32000
 ```
 **How to create an admin user who has access to all Kubernetes resources.**  
-*1: Create Admin service account
+Create Admin service account
 ``` bash
 $ vim admin-sa.yml
 ---
@@ -148,4 +148,39 @@ metadata:
   name: admin
   namespace: kube-system
 ```
+Apply the manifest:  
+``` bash
+kubectl apply -f admin-sa.yml
+```
+Assign the service account created a cluster role binding of cluster-admin.  
+``` bash
+$ vim admin-rbac.yml
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: admin
+    namespace: kube-system
+```
+Apply the manifest:  
+``` bash
+kubectl apply -f admin-rbac.yml
+```
+You can print the generated token for a service account by using the kubectl command.
+Set a variable to store the name of the service account.
+``` bash
+SA_NAME="admin"
+```
+Then run the command below to print the token for the admin user created.
+``` bash
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep ${SA_NAME} | awk '{print $1}')
+```
+
 ***
