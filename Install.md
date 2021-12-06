@@ -173,14 +173,13 @@ Apply the manifest:
 ``` bash
 kubectl apply -f admin-rbac.yml
 ```
-You can print the generated token for a service account by using the kubectl command.
+To print the generated token for a service account by using the kubectl command:
 Set a variable to store the name of the service account.
 ``` bash
 SA_NAME="admin"
 ```
-Then run the command below to print the token for the admin user created.
+Run the command below to print the token for the admin user created.
 ``` bash
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep ${SA_NAME} | awk '{print $1}')
 ```
-
 ***
