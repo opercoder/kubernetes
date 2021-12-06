@@ -137,9 +137,8 @@ The dashboard is available on the port 32000:
 ``` bash
 https://<ip or domain-name>:32000
 ```
-***
-How to create an admin user who has access to all Kubernetes resources.  
-1: Create Admin service account
+**How to create an admin user who has access to all Kubernetes resources.**  
+*1: Create Admin service account
 ``` bash
 $ vim admin-sa.yml
 ---
@@ -149,3 +148,4 @@ metadata:
   name: admin
   namespace: kube-system
 ```
+***
