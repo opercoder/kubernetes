@@ -4,7 +4,9 @@ docker build -t kubia <path_to_Dockerfile>
 2. **Print a list of images:**  
 docker images           
 3. **Delete the image:**  
-docker rmi <image name>  
+docker rmi <image name>
+4. **To make a new tag for image:**  
+docker tag <old_tag> <new_image_tag>
 # Containers  
 1. **Run a container from the image:**  
 docker run --name kubia-container -p 8080:8080 -d kubia  
@@ -20,3 +22,8 @@ docker exec -ti <container name> bash
 docker stop <container name>
 7. **Delete the container:**  
 docker rm <container name>
+# Docker Hub
+1. **Login to Docker Hub:**  
+docker login
+2. **Send the image to Docker Hub**  
+docker push <image tag>
