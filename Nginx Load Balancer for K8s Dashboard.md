@@ -1,4 +1,4 @@
-# How to get access to the Kubernetes Dashboard by one address: https://kube.mydomain
+# Access to the K8s Dashboard by one address: https://kube.mydomain
 **Put kubernetes_proxy.conf in the path: /etc/nginx/config:**
 ``` bash
 upstream kube.mydomain {
