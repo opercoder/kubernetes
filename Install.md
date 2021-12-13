@@ -146,7 +146,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: admin
-  namespace: kube-system
+  namespace: kubernetes-dashboard
 ```
 Apply the manifest:  
 ``` bash
@@ -165,21 +165,16 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-  - kind: ServiceAccount
-    name: admin
-    namespace: kube-system
+- kind: ServiceAccount
+  name: admin
+  namespace: kubernetes-dashboard
 ```
 Apply the manifest:  
 ``` bash
 kubectl apply -f admin-rbac.yml
 ```
-To print the generated token for a service account by using the kubectl command:
-Set a variable to store the name of the service account.
-``` bash
-SA_NAME="admin"
-```
 Run the command below to print the token for the admin user created.
 ``` bash
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep ${SA_NAME} | awk '{print $1}')
+kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
 ```
 ***
