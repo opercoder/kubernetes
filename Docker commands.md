@@ -10,5 +10,13 @@ docker rmi <image name>
 docker run --name kubia-container -p 8080:8080 -d kubia  
 2. **Print running containers:**  
 docker ps  
-3. **Show additional information about container:**  
+3. **Print all containers, include stopped:**  
+docker ps -a
+4. **Show additional information about container:**  
 docker inspect <container name>
+5. **Run bash into the existing container:**  
+docker exec -ti <container name> bash
+6. **Stop the container:**  
+docker stop <container name>
+7. **Delete the container:**  
+docker rm <container name>
