@@ -25,5 +25,5 @@ docker rm <container name>
 # Docker Hub
 1. **Login to Docker Hub:**  
 docker login
-2. **Send the image to Docker Hub**  
-docker push <image_tag>  
+2. **Send the image to Docker Hub:**  
+docker push <image_tag>
