@@ -27,10 +27,11 @@ kubectl get svc
 7. **Show yaml file of the pod:**  
 ``` bash
 kubectl get po <pod_name> -o yaml  
+kubectl get po <pod_name> -o json  
 ```
-metadata - include name, namespaces, tags and other additional information;  
-spec (specification) - include pod's description: containers, volumes and other;  
-status - include a current information about pod: status of each container, ip address and other base information.  
+**metadata** - include name, namespaces, tags and other additional information;  
+**spec** (specification) - include pod's description: containers, volumes and other;  
+**status** - include a current information about pod: status of each container, ip address and other base information.  
 7. **Example of simple yaml manifest:**  
 ``` bash
 apiVersion: v1  
@@ -50,4 +51,13 @@ spec:
 kubectl explain pods
 kubectl explain sc
 kubectl explain pod.spec 
+```
+9. **Create a pod:**
+``` bash
+kubectl create -f <yaml_filename>  
+```
+10. **Show logs**
+``` bash
+kubectl logs <pod_name>
+kubectl logs <pod_name> -c <container_name>
 ```
