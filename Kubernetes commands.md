@@ -72,7 +72,14 @@ metadata:
 ```
 **Show pod with labeles**
 ``` bash
-kubectl get po --show-labels
-kubectl get po -L creation_method,env
+kubectl get po --show-labels  
+# Show all pods and labels's columns  
+kubectl get po -L creation_method,env  
+# Create the label  
+kubectl label po kubia-manual creation_method=manual  
+# Change the label
+kubectl label po kubia-manual-v2 env=debug --overwrite  
+# Show only pods with the label "env"
+kubectl get po -l env  
 ```
 
