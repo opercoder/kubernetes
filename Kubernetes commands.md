@@ -81,5 +81,7 @@ kubectl label po kubia-manual creation_method=manual
 kubectl label po kubia-manual-v2 env=debug --overwrite  
 # Show only pods with the label "env"
 kubectl get po -l env  
+# Show only pods without the label "env"
+kubectl get po -l '!env'  
 ```
 
