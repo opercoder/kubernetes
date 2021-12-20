@@ -61,3 +61,18 @@ kubectl create -f <yaml_filename>
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
 ```
+11. **Create labels**
+``` bash
+metadata:
+  ...
+  labels:
+    creation_method: manual
+    env: prod
+  ...  
+```
+**Show pod with labeles**
+``` bash
+kubectl get po --show-labels
+kubectl get po -L creation_method,env
+```
+
