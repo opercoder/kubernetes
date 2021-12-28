@@ -98,4 +98,12 @@ kubectl label node <node_name> model=old_asus
 ``` bash
 kubectl get nodes -l model=old_asus
 ```
+15. **Start a pod on the node with a definite label**
+``` bash
+...
+spec:
+  nodeSelector:
+    model: "test_asus"
+...
+```
 
