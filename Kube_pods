@@ -1,30 +1,13 @@
-# Cluster
-1. **Common cluster information:**  
-``` bash
-kubectl cluster-info
-```
-2. **Cluster information about nodes:**  
-``` bash
-kubectl get nodes
-```
-3. **Detailed information about node:**  
-``` bash
-kubectl describe node <node_name>
-```
-4.  **Print a list of pods:**  
+1.  **Print a list of pods:**  
 ``` bash
 kubectl get pods
 kubectl get pods -o wide
 ```
-5.  **Show additional information about pod:**  
+2.  **Show additional information about pod:**  
 ``` bash
 kubectl describe pods/<pod_name>
 ```
-6. **Print a list of services:**  
-``` bash
-kubectl get svc
-```
-7. **Show yaml file of the pod:**  
+3. **Show yaml file of the pod:**  
 ``` bash
 kubectl get po <pod_name> -o yaml  
 kubectl get po <pod_name> -o json  
@@ -46,17 +29,12 @@ spec:
     - containerPort: 8080
       protocol: TCP
 ```
-8. **Show competent fields for kubernetes objects:**
-``` bash
-kubectl explain pods
-kubectl explain sc
-kubectl explain pod.spec 
-```
-9. **Create a pod:**
+4. **Create a pod:**
 ``` bash
 kubectl create -f <yaml_filename>  
+kubectl create -f <yaml_filename> -n <namespace_name>
 ```
-10. **Show logs**
+5. **Show logs**
 ``` bash
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
