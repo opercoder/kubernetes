@@ -83,5 +83,12 @@ kubectl label po kubia-manual-v2 env=debug --overwrite
 kubectl get po -l env  
 # Show only pods without the label "env"
 kubectl get po -l '!env'  
+# Show only pods with the label "env" with the value "debug"  
+kubectl get po -l "env!=debug"  
+# Show only pods with the label "env" with values "debug" or "prod"  
+kubectl get po -l "env in (prod,debug)"
+# Show only pods with the label "env" without values "debug" and "prod"  
+kubectl get po -l "env notin (prod,debug)"
+
 ```
 
