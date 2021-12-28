@@ -61,7 +61,7 @@ kubectl create -f <yaml_filename>
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
 ```
-11. **Create labels**
+11. **Create labels for pods**
 ``` bash
 metadata:
   ...
@@ -70,7 +70,7 @@ metadata:
     env: prod
   ...  
 ```
-**Show pod with labeles**
+12. **Show pod with labeles**
 ``` bash
 kubectl get po --show-labels  
 # Show all pods and labels's columns  
@@ -89,6 +89,13 @@ kubectl get po -l "env!=debug"
 kubectl get po -l "env in (prod,debug)"
 # Show only pods with the label "env" without values "debug" and "prod"  
 kubectl get po -l "env notin (prod,debug)"
-
+```
+13. **Create labels for nodes**
+``` bash
+kubectl label node <node_name> model=old_asus
+```
+14. **Show nodes with labels**
+``` bash
+kubectl get nodes -l model=old_asus
 ```
 
