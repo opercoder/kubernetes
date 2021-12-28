@@ -39,3 +39,24 @@ kubectl create -f <yaml_filename> -n <namespace_name>
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
 ```
+6. **Delete a pod**
+``` bash
+kubectl delete po <pod_name>
+```
+7. **Delete pods by label**
+``` bash
+kubectl delete po -l creation_method=manual
+```
+8. **Delete a namespace with pods**
+``` bash
+kubectl delete namespace namespace-test
+```
+9. **Delete all pods without default namespace**
+``` bash
+kubectl delete po --all
+```
+10. **Delete almost all resources except secrets and another**
+``` bash
+kubectl delete all --all
+```
+
