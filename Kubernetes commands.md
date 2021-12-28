@@ -32,7 +32,7 @@ kubectl get po <pod_name> -o json
 **metadata** - include name, namespaces, tags and other additional information;  
 **spec** (specification) - include pod's description: containers, volumes and other;  
 **status** - include a current information about pod: status of each container, ip address and other base information.  
-7. **Example of simple yaml manifest:**  
+**Example of simple yaml manifest:**  
 ``` bash
 apiVersion: v1  
 kind: Pod  
