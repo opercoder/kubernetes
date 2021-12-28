@@ -1,4 +1,4 @@
-1. **Create labels for pods**
+1.2 **Create labels for pods**
 ``` bash
 metadata:
   ...
@@ -6,6 +6,10 @@ metadata:
     creation_method: manual
     env: prod
   ...  
+```
+1.2 **Create an annotation for pod**
+``` bash
+kubectl annotate pod <pod_name> mycompany.com/someannotation="bla bla"
 ```
 2. **Show pod with labeles**
 ``` bash
@@ -27,7 +31,7 @@ kubectl get po -l "env in (prod,debug)"
 # Show only pods with the label "env" without values "debug" and "prod"  
 kubectl get po -l "env notin (prod,debug)"
 ```
-3. **Create labels for nodes**
+3 **Create a label for node**
 ``` bash
 kubectl label node <node_name> model=old_asus
 ```
@@ -42,4 +46,8 @@ spec:
   nodeSelector:
     model: "test_asus"
 ...
+```
+6. **Show namespaces**
+``` bash
+kubectl get ns
 ```
