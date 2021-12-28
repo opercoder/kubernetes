@@ -8,5 +8,9 @@ source <(kubectl completion bash)
 kubectl port-forward <pod_name> <port_out>:<port_in>
 # To check execute: curl localhost:<port_out>.  
 ```
+3. **Fast namespace changing**  
+``` bash
+alias kcd='kubectl config set-context $(kubectl config current-context) --namespace '
+```
 
 
