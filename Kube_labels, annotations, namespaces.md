@@ -51,3 +51,20 @@ spec:
 ``` bash
 kubectl get ns
 ```
+7. **Show podes in the namespace**
+``` bash
+kubectl get po --namespace kube-system
+```
+8.1 **Create a namespace from file**
+``` bash
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: namespace-test
+Execute: kubectl create -f namespace-test.yaml
+```
+8.2 **Create a namespace by command**
+``` bash
+kubectl create namespace namespace-test
+```
+
