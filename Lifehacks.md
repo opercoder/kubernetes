@@ -12,5 +12,9 @@ kubectl port-forward <pod_name> <port_out>:<port_in>
 ``` bash
 alias kcd='kubectl config set-context $(kubectl config current-context) --namespace '
 ```
+4. **Use Nano by default editor**  
+``` bash
+export KUBE_EDITOR="/usr/bin/nano"
+```
 
 
