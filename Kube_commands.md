@@ -69,11 +69,3 @@ kubectl create -f <yaml_filename>
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
 ```
-11.1 **Edit yaml file with object's update**
-``` bash
-kubectl edit rc <replication_controller_name>
-```
-11.2 **Change the parameter of the object**
-``` bash
-kubectl scale rc <replication_controller_name> --replicas=3
-```
