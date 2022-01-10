@@ -37,6 +37,7 @@ kubectl create -f <yaml_filename> -n <namespace_name>
 5. **Show logs**
 ``` bash
 kubectl logs <pod_name>
+kubectl logs <pod_name> --previous // logs of previous pod (if you have a checking of liveness)
 kubectl logs <pod_name> -c <container_name>
 ```
 6. **Delete a pod**
