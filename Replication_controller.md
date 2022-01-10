@@ -24,7 +24,23 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Show replication controller which control a pod.
+1. **Show replication controller which control a pod.**
 ``` bash
 kubectl describe po <pod_name> | grep Controll
+```
+2. **Edit yaml file with replication controllers update.**
+``` bash
+kubectl edit rc <rc_name>
+```
+3. **Edit parameter of the replication controller.**
+``` bash
+kubectl scale rc <rc_name> --replicas=3
+```
+4. **Delete the replication controller with all pods.**
+``` bash
+kubectl delete rc <rc_name>
+```
+5. **Delete the replication controller without pods.**
+``` bash
+kubectl delete rc <rc_name> --cacsade=false
 ```
