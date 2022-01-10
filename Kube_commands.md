@@ -11,18 +11,26 @@ kubectl get nodes
 ``` bash
 kubectl describe node <node_name>
 ```
-4.  **Print a list of pods:**  
+4.1  **Print a list of pods:**  
 ``` bash
 kubectl get pods
 kubectl get pods -o wide
 ```
-5.  **Show additional information about pod:**  
+4.2  **Show additional information about pod:**  
 ``` bash
 kubectl describe pods/<pod_name>
 ```
-6. **Print a list of services:**  
+5. **Print a list of services:**  
 ``` bash
 kubectl get svc
+```
+6.1 **Print a list of replication controllers:**  
+``` bash
+kubectl get rc
+```
+6.2 **Print a list of replication controllers:**  
+``` bash
+kubectl describe rc <rc_name>
 ```
 7. **Show yaml file of the pod:**  
 ``` bash
