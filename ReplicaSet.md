@@ -20,7 +20,7 @@ spec:
         ports:
         - containerPort: 8080
 ```
-1. ***Show info about rs***
+1. **Show info abouut ReplicaSet.**
 ``` bash
 kubectl get rs
 kubectl describe rs
