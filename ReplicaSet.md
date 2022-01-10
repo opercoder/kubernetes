@@ -20,3 +20,9 @@ spec:
         ports:
         - containerPort: 8080
 ```
+1. ***Show info about rs***
+``` bash
+kubectl get rs
+kubectl describe rs
+```
+
