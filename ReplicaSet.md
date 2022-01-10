@@ -25,4 +25,13 @@ spec:
 kubectl get rs
 kubectl describe rs
 ```
+2. **Other variants of selector.**
+``` bash
+  selector:
+    matchExpressions:
+      - key: app
+        operator: In (NotIn, Exists, DoesNotExist)
+        values:
+          - kubia
+```
 
