@@ -69,3 +69,7 @@ kubectl create -f <yaml_filename>
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
 ```
+11. **Edit yaml file with update object**
+``` bash
+kubectl edit rc <replication_controller_name>
+```
