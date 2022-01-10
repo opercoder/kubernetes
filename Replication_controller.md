@@ -24,7 +24,7 @@ spec:
         ports:
         - containerPort: 8080
 ```
-Show replication controler which control a pod.
+Show replication controller which control a pod.
 ``` bash
 kubectl describe po <pod_name> | grep Controll
 ```
