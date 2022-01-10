@@ -2,6 +2,7 @@ Replication controller consist of three main parts:
 - label's selector;
 - replica's count;
 - pod's template.  
+
 It is example of yaml file which create a replication controller:
 ``` bash
 apiVersion: v1
