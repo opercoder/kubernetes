@@ -7,6 +7,8 @@ metadata:
 spec:
   completions: 5 // sequential execution
   parallelism: 2 // up to two modules can be executed in parallel
+  <activeDeadlineSeconds: 100 // duration of the job before it failure>
+  <backoffLimit: 5 // count of retries before job failure>
   template:
     metadata:
       labels:
