@@ -21,5 +21,8 @@ A Job creates one or more Pods and will continue to retry execution of the Pods 
 ### CronJob
 A CronJob creates Jobs on a repeating schedule.
 One CronJob object is like one line of a crontab (cron table) file. It runs a job periodically on a given schedule, written in Cron format.
+## Service
+An abstract way to expose an application running on a set of Pods as a network service.
+With Kubernetes you don't need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
 ***
 _This info from https://kubernetes.io/docs/._
