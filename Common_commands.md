@@ -69,3 +69,8 @@ kubectl create -f <yaml_filename>
 kubectl logs <pod_name>
 kubectl logs <pod_name> -c <container_name>
 ```
+11. **Execute a command on a pod**
+``` bash
+kubectl exec <pod_name> -- <command>
+kubectl exec kubia-ddwrt -- curl -s http://10.105.26.216
+```
