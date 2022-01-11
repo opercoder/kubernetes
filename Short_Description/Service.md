@@ -5,7 +5,7 @@ kind: Service
 metadata:
   name: kubia
 spec:
-  sessionAffinity: ClientIP // save
+  sessionAffinity: ClientIP // connections from a particular client are passed to the same Pod each time
   ports:
   - port: 80
     targetPort: 8080
