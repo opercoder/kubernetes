@@ -1,4 +1,4 @@
-### Example oh the yaml file
+### Example of the yaml file
 ``` bash
 apiVersion: v1
 kind: Service
@@ -7,8 +7,12 @@ metadata:
 spec:
   sessionAffinity: ClientIP // connections from a particular client are passed to the same Pod each time
   ports:
-  - port: 80
+  - name: http
+    port: 80
     targetPort: 8080
+  - name: https
+    port: 443
+    targetPort: 8443
   selector:
     app: kubia
 ```
