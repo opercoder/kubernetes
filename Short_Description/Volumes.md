@@ -37,3 +37,14 @@ spec:
     emptyDir:
       medium: Memory // tmpfs
 ```
+#### hostPath
+A hostPath volume mounts a file or directory from the host node's filesystem into your Pod.  
+HostPath volumes present many security risks, and it is a best practice to avoid the use of HostPaths when possible. When a HostPath volume must be used, it should be scoped to only the required file or directory, and mounted as ReadOnly.
+#### nfs
+``` bash
+volumes:
+  - name: db-data
+    nfs:
+      server: 1.1.1.1
+      path: /some/path
+```
