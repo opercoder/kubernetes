@@ -25,9 +25,14 @@ spec:
   containers:  
   - image: opercoder/kubia  
     name: kubia
+    livenessProbe:  # Check Pod liveness
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 15
     ports:
     - containerPort: 8080
-      protocol: TCP
+      protocol: TCP   
 ```
 4. **Create a pod:**
 ``` bash
