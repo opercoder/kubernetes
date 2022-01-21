@@ -21,6 +21,11 @@ spec:
       containers:
       - name: kubia
         image: luksa/kubia
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /var/ready
         ports:
         - containerPort: 8080
 ```
