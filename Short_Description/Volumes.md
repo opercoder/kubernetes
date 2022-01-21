@@ -32,5 +32,8 @@ spec:
       protocol: TCP
   volumes:
   - name: html
-    emptyDir: {}
+    emptyDir: {}     // local disk
+        or
+    emptyDir:
+      medium: Memory // tmpfs
 ```
