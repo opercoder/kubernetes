@@ -21,7 +21,7 @@ spec:
       containers:
       - name: kubia
         image: luksa/kubia
-        readinessProbe:
+        readinessProbe: # MUST HAVE PRECISELY
           exec:
             command:
             - ls
