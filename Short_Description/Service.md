@@ -16,3 +16,17 @@ spec:
   selector:
     app: kubia
 ```
+### Example of the headless service:
+``` bash
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubia-headless
+spec:
+  clusterIP: None
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: kubia
+```
