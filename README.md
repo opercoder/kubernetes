@@ -32,5 +32,7 @@ On-disk files in a container are ephemeral, which presents some problems for non
 One problem is the loss of files when a container crashes. The kubelet restarts the container but with a clean state.  
 A second problem occurs when sharing files between containers running together in a Pod.  
 The Kubernetes volume abstraction solves both of these problems. At its core, a volume is a directory, possibly with some data in it, which is accessible to the containers in a pod. How that directory comes to be, the medium that backs it, and the contents of it are determined by the particular volume type used.
+### Storage Classes
+A StorageClass provides a way for administrators to describe the "classes" of storage they offer. Different classes might map to quality-of-service levels, or to backup policies, or to arbitrary policies determined by the cluster administrators. Kubernetes itself is unopinionated about what classes represent. This concept is sometimes called "profiles" in other storage systems.
 ***
 _This info from https://kubernetes.io/docs/._
