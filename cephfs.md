@@ -94,3 +94,27 @@ kubectl apply -f csi-rbdplugin-provisioner.yaml
 wget https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-rbdplugin.yaml
 kubectl apply -f csi-rbdplugin.yaml
 ```
+#### 5. Create a StorageClass:
+> The Kubernetes StorageClass defines a class of storage. Multiple StorageClass objects can be created to map to different quality-of-service levels (i.e. NVMe vs HDD-based pools) and features.
+``` bash $ cat <<EOF > csi-rbd-sc.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: csi-rbd-sc
+provisioner: rbd.csi.ceph.com
+parameters:
+   clusterID: b9127830-b0cc-4e34-aa47-9d1a2e9949a8
+   pool: kubernetes
+   imageFeatures: layering
+   csi.storage.k8s.io/provisioner-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/provisioner-secret-namespace: default
+   csi.storage.k8s.io/controller-expand-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/controller-expand-secret-namespace: default
+   csi.storage.k8s.io/node-stage-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/node-stage-secret-namespace: default
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+mountOptions:
+   - discard
+```
+> kubectl apply -f csi-rbd-sc.yaml
