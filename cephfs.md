@@ -118,3 +118,81 @@ mountOptions:
    - discard
 ```
 > kubectl apply -f csi-rbd-sc.yaml
+#### 6. Create a PersistentVolumeClaim
+> A PersistentVolumeClaim is a request for abstract storage resources by a user. The PersistentVolumeClaim would then be associated to a Pod resource to provision a PersistentVolume, which would be backed by a Ceph block image. An optional volumeMode can be included to select between a mounted file system (default) or raw block device-based volume.  
+> Using ceph-csi, specifying Filesystem for volumeMode can support both ReadWriteOnce and ReadOnlyMany accessMode claims, and specifying Block for volumeMode can support ReadWriteOnce, ReadWriteMany, and ReadOnlyMany accessMode claims.  
+> For example, to create a block-based PersistentVolumeClaim that utilizes the ceph-csi-based StorageClass created above, the following YAML can be used to request raw block storage from the csi-rbd-sc StorageClass:  
+``` bash
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: raw-block-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Block
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-rbd-sc
+```
+> kubectl apply -f raw-block-pvc.yaml
+The following demonstrates and example of binding the above PersistentVolumeClaim to a Pod resource as a raw block device:
+``` bash
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-raw-block-volume
+spec:
+  containers:
+    - name: fc-container
+      image: fedora:26
+      command: ["/bin/sh", "-c"]
+      args: ["tail -f /dev/null"]
+      volumeDevices:
+        - name: data
+          devicePath: /dev/xvda
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: raw-block-pvc
+EOF
+$ kubectl apply -f raw-block-pod.yaml
+To create a file-system-based PersistentVolumeClaim that utilizes the ceph-csi-based StorageClass created above, the following YAML can be used to request a mounted file system (backed by an RBD image) from the csi-rbd-sc StorageClass:
+
+$ cat <<EOF > pvc.yaml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rbd-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-rbd-sc
+```
+> kubectl apply -f pvc.yaml
+The following demonstrates and example of binding the above PersistentVolumeClaim to a Pod resource as a mounted file system:
+``` bash 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: csi-rbd-demo-pod
+spec:
+  containers:
+    - name: web-server
+      image: nginx
+      volumeMounts:
+        - name: mypvc
+          mountPath: /var/lib/www/html
+  volumes:
+    - name: mypvc
+      persistentVolumeClaim:
+        claimName: rbd-pvc
+        readOnly: false
+```
+> kubectl apply -f pod.yaml
