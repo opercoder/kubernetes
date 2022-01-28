@@ -70,5 +70,51 @@ allowVolumeExpansion: true
 mountOptions:
    - discard
 ```
-
-
+#### PersistentVolume
+``` bash
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  gcePersistentDisk:
+    pdName: mongodb
+    fsType: ext4
+```
+#### PersistentVolume
+``` bash
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  - ReadOnlyMany
+  persistentVolumeReclaimPolicy: Retain
+  gcePersistentDisk:
+    pdName: mongodb
+    fsType: ext4
+```
+#### PersistentVolumeClaim
+``` bash
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+spec:
+  resources:
+    requests:
+      storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: ""
+```
