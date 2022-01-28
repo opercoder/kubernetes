@@ -48,3 +48,27 @@ volumes:
       server: 1.1.1.1
       path: /some/path
 ```
+#### StorageClass
+``` bash
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+   name: ceph
+provisioner: rbd.csi.ceph.com
+parameters:
+   clusterID: 1785241c-51b1-11ec-a431-b9cfb200a6c1
+   pool: kubernetes
+   imageFeatures: layering
+   csi.storage.k8s.io/provisioner-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/provisioner-secret-namespace: default
+   csi.storage.k8s.io/controller-expand-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/controller-expand-secret-namespace: default
+   csi.storage.k8s.io/node-stage-secret-name: csi-rbd-secret
+   csi.storage.k8s.io/node-stage-secret-namespace: default
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+mountOptions:
+   - discard
+```
+
+
