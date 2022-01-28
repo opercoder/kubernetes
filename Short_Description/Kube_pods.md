@@ -25,6 +25,9 @@ spec:
   containers:  
   - image: opercoder/kubia  
     name: kubia
+    volumeMounts:
+    - name: mongodb-data
+      mountPath: /data/db
     livenessProbe:  # Check Pod liveness
       httpGet:
         path: /
@@ -33,6 +36,10 @@ spec:
     ports:
     - containerPort: 8080
       protocol: TCP   
+  volumes:
+  - name: mongodb-data
+    persistentVolumeClaim:
+      claimName: mongodb-pvc
 ```
 4. **Create a pod:**
 ``` bash
