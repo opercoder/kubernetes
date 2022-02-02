@@ -113,3 +113,13 @@ env:
         key: somekey
         optional: true # allow to create a Pod without actual configmap
 ```
+> with ConfigMap and env names equaled keys (with or without prefix)
+``` bash
+spec:
+  containers:
+  - image: some/image
+    envFrom:
+    - prefix: CONFIG_
+      configMapRef:
+        name: configmap-name
+```
