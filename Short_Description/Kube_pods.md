@@ -150,5 +150,10 @@ spec:
   ...
   - name: config
     configMap:
-      name: fortune-config
+      name: fortune-config \\ all configMap
+        or
+      name: fortune-config \\ part of configMap
+      items:
+      - key: my-nginx-config.conf
+        path: gzip.conf
  ```
