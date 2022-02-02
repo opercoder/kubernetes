@@ -98,6 +98,8 @@ spec:
   containers:
   - image: some/image
     env:
-    - name: INTERVAL
-      value: "30"
+    - name: FIRST_VAR
+      value: "foo"
+    - name: SECOND_VAR
+      value: "$(FIRST_VAR)bar"
 ```
