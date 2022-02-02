@@ -72,8 +72,10 @@ kubectl delete po --all
 ``` bash
 kubectl delete all --all
 ```
-11. **Commands and arguments**   
+11. **Commands and arguments**  
+ 
 | Docker      | Kubernetes  | Description                             |  
 |-------------|-------------|-----------------------------------------|  
 | ENTRYPOINT  | command     | An executable file into the container   |  
 | CMD         | args        | Arguments passed to the executable file | 
+
