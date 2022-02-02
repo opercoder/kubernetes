@@ -73,15 +73,8 @@ kubectl delete po --all
 kubectl delete all --all
 ```
 11. **Commands and arguments** 
-| Item         | Price     | # In stock |
-|--------------|-----------|------------|
-| Juicy Apples | 1.99      | *7*        |
-| Bananas      | **1.89**  | 5234       |
-
-| Docker        | Kubernetes    | Description  |  
-| ------------- | ------------- | ------------ |  
-|ENTRYPOINT     |command        | Execution file |  
-``` bash
-kubectl delete all --all
-```
+| Docker        | Kubernetes    | Description                             |  
+| ------------- | ------------- | --------------------------------------- |  
+| ENTRYPOINT    | command       | An executable file into the container   |  
+| CMD           | args          | Arguments passed to the executable file |  
 
