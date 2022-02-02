@@ -134,3 +134,21 @@ spec:
           key: sleep-interval
     args: ["$(INTERVAL)"]
 ```
+14. **Create a pod with the volume with the config file from the configMap:**
+``` bash
+- image: nginx:alpine
+    name: web-server
+    volumeMounts:
+    ...
+    - name: config
+      mountPath: /etc/nginx/conf.d    
+      readOnly: true
+    ports:
+    - containerPort: 80
+      protocol: TCP
+  volumes:
+  ...
+  - name: config
+    configMap:
+      name: fortune-config
+ ```
