@@ -84,5 +84,20 @@ spec:
   containers:
   - image: some/image
     command: ["/bin/command"]
-    args: ["arg1", "arg2", "arg3"]
+    args: [foo, bar, "25"]
+    or
+    args:
+    - foo
+    - bar
+    - "25"
+```
+12. **Environment variables**
+``` bash
+kind: Pod
+spec:
+  containers:
+  - image: some/image
+    env:
+    - name: INTERVAL
+      value: "30"
 ```
