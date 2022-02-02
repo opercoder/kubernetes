@@ -123,3 +123,14 @@ spec:
       configMapRef:
         name: configmap-name
 ```
+13. **Create a pod with the ConfigMap as the first argument:**
+``` bash
+    name: fortunearg
+    env:
+    - name: INTERVAL
+      valueFrom: 
+        configMapKeyRef:
+          name: fortune-config
+          key: sleep-interval
+    args: ["$(INTERVAL)"]
+```
