@@ -103,3 +103,13 @@ spec:
     - name: SECOND_VAR
       value: "$(FIRST_VAR)bar"
 ```
+> with ConfigMap
+``` bash
+env:
+  - name: FIRST_VAR
+    valueFrom:
+      configMapKeyRef:
+        name: configmap-name
+        key: somekey
+        optional: true # allow to create a Pod without actual configmap
+```
