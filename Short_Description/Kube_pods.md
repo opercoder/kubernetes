@@ -78,4 +78,11 @@ kubectl delete all --all
 |-------------|-------------|-----------------------------------------|  
 | ENTRYPOINT  | command     | An executable file into the container   |  
 | CMD         | args        | Arguments passed to the executable file | 
-
+``` bash
+kind: Pod
+spec:
+  containers:
+  - image: some/image
+    command: ["/bin/command"]
+    args: ["arg1", "arg2", "arg3"]
+```
