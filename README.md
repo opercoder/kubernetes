@@ -1,4 +1,4 @@
-1. __HowTo Install__  
+1. __[HowTo Install](https://github.com/opercoder/Kubernetes/blob/main/HowTo_Install.md)__  
 How to install a K8s cluster with ansibles playbooks.
 2. __Common definitions__  
 There are definitions of so main elements as node, pod, replication controller and so on.
