@@ -9,33 +9,57 @@ ansible-playbook kubernetes_install.yml
   become: true
   strategy: free
   tasks:
-    - name: Update apt cache
+    - name: Обновляем apt cache
       shell: 'apt-get clean && apt-get update'
-    - name: Установка Kubernetes
-      ansible.builtin.shell: |
-        apt-get install -y apt-transport-https ca-certificates curl
-        curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-        echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-        apt-get update
-        apt-get install -y kubelet kubeadm kubectl
-        apt-mark hold kubelet kubeadm kubectl
-        mkdir /etc/docker
-        exit 0
-    - name: Change Docker daemon.json
-      ansible.builtin.copy:
-        src: /etc/ansible/daemon.json
-        dest: /etc/docker/daemon.json
-        follow: yes
-    - name: Restart Docker
-      shell: 'systemctl enable docker && systemctl daemon-reload && systemctl restart docker'
-    - name: Turn off swap on Ubuntu 18.04
-      shell: 'if [ -f "/swap.img" ] ; then swapoff -v /swap.img; fi && sed -i /swap/d /etc/fstab && if [ -f "/swap.img" ] ; then rm /swap.img; fi'
     - name: Install packages
       apt: 
         pkg:
           - vim
           - htop
-          - docker.io
+    - name: Подключаем репозиторий
+      shell: curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    - name: Подключаем репозиторий
+      shell: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    - name: Подключаем репозиторий
+      shell: echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    - name: Обновление репозитория
+      shell: apt-get update
+    - name: Установка доп. пакетов
+      shell: apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+    - name: Установка докер
+      shell: apt-get install -y docker-ce docker-ce-cli containerd.io
+    - name: Установка пакетов Kubernetes
+      shell: apt-get install -y kubelet kubeadm kubectl --allow-change-held-packages
+    - name: Запрещаем обновлять Kubernetes
+      shell: apt-mark hold kubelet kubeadm kubectl
+    - name: Для докера
+      shell: mkdir -p /etc/docker
+    - name: Change Docker daemon.json
+      ansible.builtin.copy:
+        src: /etc/ansible/daemon.json
+        dest: /etc/docker/daemon.json
+        follow: yes
+    - name: Create dir for certificate
+      ansible.builtin.file:
+        path: "/etc/docker/certs.d/"
+        state: directory
+        mode: '0755'
+    - name: Create dir for certificate
+      ansible.builtin.file:
+        path: "/etc/docker/certs.d/registry.sirius.mix:5000/"
+        state: directory
+        mode: '0755'
+    - name: Копируем сертификат
+      ansible.builtin.copy:
+        src: "ca.crt"
+        dest: "/etc/docker/certs.d/registry.sirius.mix:5000/ca.crt"
+        owner: root
+        group: root
+        mode: '0644'
+    - name: Перезапускаем Docker
+      shell: 'systemctl enable docker && systemctl daemon-reload && systemctl restart docker'
+    - name: Отключаем swap на Ubuntu 18.04
+      shell: 'if [ -f "/swap.img" ] ; then swapoff -v /swap.img; fi && sed -i /swap/d /etc/fstab && if [ -f "/swap.img" ] ; then rm /swap.img; fi'
 ```
 **daemon.json**
 ``` bash
