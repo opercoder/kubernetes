@@ -10,4 +10,12 @@ kubectl drain <node_name> --ignore-daemonsets
 ``` bash 
 kubectl delete <node_name>
 ```
- 
+#### 3. Delete kubernetes software from a node:
+``` bash 
+echo y | kubeadm reset
+apt-get purge -y --allow-change-held-packages kubelet kubeadm kubectl vim htop docker docker.io docker-engine containerd runc
+apt-get -y autoremove
+rm -rf /etc/kubernetes/*
+rm -rf /root/.kube/
+```
+
