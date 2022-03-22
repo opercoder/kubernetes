@@ -105,7 +105,7 @@ https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-avail
 ``` bash
   kubeadm join control-plane.sirius.mix:6443 --token xxx \
         --discovery-token-ca-cert-hash sha256:xxx \
-        --control-plane --certificate-key xxx
+        --control-plane --certificate-key xxx --apiserver-advertise-address <local_ip_which will_be_listen>
 ```
 **5)Then you can join any number of worker nodes by running the following on each as root:**  
 ``` bash
