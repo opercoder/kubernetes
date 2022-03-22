@@ -1,4 +1,4 @@
-#### 1. Safely remove a node from a cluster.
+#### 1. Safely drain a node.
 ``` bash 
 kubectl drain <node_name> --ignore-daemonsets
 ```
