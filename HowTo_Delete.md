@@ -1,9 +1,13 @@
-#### 1. Safely drain a node.
+#### 1. Prohibition to create new podes on a node:
+``` bash 
+kubectl cordon <node_name>
+```
+#### 2. Safely drain a node.
 ``` bash 
 kubectl drain <node_name> --ignore-daemonsets
 ```
-#### 2. If you leave the node in the cluster during the maintenance operation, you need to run:
+#### 3. Delete a node from a cluster:
 ``` bash 
-kubectl uncordon <node_name>
+kubectl delete <node_name>
 ```
  
