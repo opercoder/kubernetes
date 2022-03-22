@@ -8,7 +8,7 @@ kubectl drain <node_name> --ignore-daemonsets
 ```
 #### 3. Delete a node from a cluster:
 ``` bash 
-kubectl delete <node_name>
+kubectl delete no <node_name>
 ```
 #### 3. Delete kubernetes software from a node:
 ``` bash 
