@@ -80,6 +80,7 @@ stringData:
   userID: kubernetes
   key: AQCyW+5hy/zMMRAAXWG2mapEirEl6qvH9hO28g==
 ```
+> kubectl apply -f ceph-secret.yaml
 #### 3. Create the required ServiceAccount and RBAC ClusterRole/ClusterRoleBinding Kubernetes objects:
 ``` bash
 kubectl apply -f https://raw.githubusercontent.com/ceph/ceph-csi/master/deploy/rbd/kubernetes/csi-provisioner-rbac.yaml
