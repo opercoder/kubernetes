@@ -115,10 +115,14 @@ kubeadm join control-plane.sirius.mix:6443 --token xxx \
 **5.1) If you do not have the token, you can get it by running the following command on the control-plane node:**  
 `kubeadm token list`  
 By default, tokens expire after 24 hours. For create a new token: `kubeadm token create`  
-You can get `--discovery-token-ca-cert-hash` by runnig the following command chain on the control-plane node:  
+You can get `--discovery-token-ca-cert-hash` by running the following command chain on the control-plane node:  
 ``` bash 
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
   openssl dgst -sha256 -hex | sed 's/^.* //'
+```
+You can get `--certificate-key` by running the following command chain on the control-plane node:  
+``` bash 
+kubeadm init phase upload-certs --upload-certs
 ```
 **6) In order to get a kubectl on some other computer(e.g. laptop) to talk to your cluster, you need to copy the admin kubeconfig file
 from your control-plane node to your workstation like this:**  
