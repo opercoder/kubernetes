@@ -20,7 +20,9 @@ ceph mon dump
 > 0: [v2:192.168.1.1:3300/0,v1:192.168.1.1:6789/0] mon.a  
 > 1: [v2:192.168.1.2:3300/0,v1:192.168.1.2:6789/0] mon.b  
 > 2: [v2:192.168.1.3:3300/0,v1:192.168.1.3:6789/0] mon.c  
-#### 4. Recent versions of ceph-csi also require an additional ConfigMap object to define Key Management Service (KMS) provider details. If KMS isn’t set up, put an empty configuration:
+
+## On kubernetes's hosts
+#### -1. Recent versions of ceph-csi also require an additional ConfigMap object to define Key Management Service (KMS) provider details. If KMS isn’t set up, put an empty configuration:
 ``` bash
 apiVersion: v1
 kind: ConfigMap
@@ -31,7 +33,7 @@ metadata:
   name: ceph-csi-encryption-kms-config
 ```
 > kubectl apply -f csi-kms-config-map.yaml
-#### 5. Recent versions of ceph-csi also require yet another ConfigMap object to define Ceph configuration to add to ceph.conf file inside CSI containers:
+#### 0. Recent versions of ceph-csi also require yet another ConfigMap object to define Ceph configuration to add to ceph.conf file inside CSI containers:
 ``` bash
 apiVersion: v1
 kind: ConfigMap
@@ -47,7 +49,6 @@ metadata:
   name: ceph-config
 ```
 > kubectl apply -f ceph-config-map.yaml
-## On kubernetes's hosts
 #### 1. Generate a csi-config-map.yaml file:
 ``` bash
 apiVersion: v1
