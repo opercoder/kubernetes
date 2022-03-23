@@ -3,18 +3,14 @@
 ``` bash
 ceph osd pool create kubernetes
 ```
-#### 2. Initialize the pool.
-``` bash
-ceph osd pool create kubernetes
-```
-#### 3. Create a new user for Kubernetes and ceph-csi.
+#### 2. Create a new user for Kubernetes and ceph-csi.
 ``` bash
 ceph auth get-or-create client.kubernetes mon 'allow r' osd 'allow rw pool=kubernetes'
 ```
 Record the generated key:  
 >\[client.kubernetes\]  
 >	 key = AQCyW+5hy/zMMRAAXWG2mapEirEl6qvH9hO28g==
-#### 4. The ceph-csi requires a ConfigMap object stored in Kubernetes to define the the Ceph monitor addresses for the Ceph cluster. Collect both the Ceph cluster unique fsid and the monitor addresses:
+#### 3. The ceph-csi requires a ConfigMap object stored in Kubernetes to define the the Ceph monitor addresses for the Ceph cluster. Collect both the Ceph cluster unique fsid and the monitor addresses:
 ``` bash
 ceph mon dump
 ```
@@ -22,7 +18,7 @@ ceph mon dump
 > 0: [v2:192.168.1.1:3300/0,v1:192.168.1.1:6789/0] mon.a  
 > 1: [v2:192.168.1.2:3300/0,v1:192.168.1.2:6789/0] mon.b  
 > 2: [v2:192.168.1.3:3300/0,v1:192.168.1.3:6789/0] mon.c  
-#### 5. Recent versions of ceph-csi also require an additional ConfigMap object to define Key Management Service (KMS) provider details. If KMS isn’t set up, put an empty configuration:
+#### 4. Recent versions of ceph-csi also require an additional ConfigMap object to define Key Management Service (KMS) provider details. If KMS isn’t set up, put an empty configuration:
 ``` bash
 apiVersion: v1
 kind: ConfigMap
@@ -33,7 +29,7 @@ metadata:
   name: ceph-csi-encryption-kms-config
 ```
 > kubectl apply -f csi-kms-config-map.yaml
-#### 6. Recent versions of ceph-csi also require yet another ConfigMap object to define Ceph configuration to add to ceph.conf file inside CSI containers:
+#### 5. Recent versions of ceph-csi also require yet another ConfigMap object to define Ceph configuration to add to ceph.conf file inside CSI containers:
 ``` bash
 apiVersion: v1
 kind: ConfigMap
