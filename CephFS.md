@@ -6,6 +6,8 @@ ceph osd pool create kubernetes
 #### 2. Create a new user for Kubernetes and ceph-csi.
 ``` bash
 ceph auth get-or-create client.kubernetes mon 'allow r' osd 'allow rw pool=kubernetes'
+          or to show:
+ceph auth ls | grep kubernetes -A1 | grep key -B1 
 ```
 Record the generated key:  
 >\[client.kubernetes\]  
