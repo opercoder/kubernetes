@@ -18,8 +18,8 @@ apt-get -y autoremove
 rm -rf /etc/kubernetes/*
 rm -rf /root/.kube/
 ```
-> IMPORTANT
-> If you want to add the node to a cluster, you will probably get an error "etcd.go:464] Failed to get etcd status for ..."
+> IMPORTANT  
+> If you want to add the node to a cluster, you will probably get an error "etcd.go:464] Failed to get etcd status for ..."  
 > Execute:
 > ``` bash
 > kubectl exec etcd-<name_of_controlplane> -n kube-system -- etcdctl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/peer.crt --key /etc/kubernetes/pki/etcd/peer.key member list
