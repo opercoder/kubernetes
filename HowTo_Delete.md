@@ -1,5 +1,5 @@
 #### 1. Prohibition to create new podes on a node:
-``` bash 
+``` bash
 kubectl cordon <node_name>
 ```
 #### 2. Safely drain a node.
@@ -18,4 +18,13 @@ apt-get -y autoremove
 rm -rf /etc/kubernetes/*
 rm -rf /root/.kube/
 ```
-
+> IMPORTANT
+> If you want to add the node to a cluster, you will probably get an error "etcd.go:464] Failed to get etcd status for ..."
+Exec:
+> ``` bash
+> kubectl exec etcd-<name_of_controlplane> -n kube-system -- etcdctl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/peer.crt --key /etc/kubernetes/pki/etcd/peer.key member list
+> ```
+> If you show the removed node, it is a bug. You must delete this node:
+> ``` bash
+> kubectl exec etcd-<name_of_controlplane> -n kube-system -- etcdctl --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/peer.crt --key /etc/kubernetes/pki/etcd/peer.key member remove <node_id>
+> ```
