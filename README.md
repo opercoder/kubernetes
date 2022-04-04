@@ -1,5 +1,7 @@
 1. __[HowTo Install](https://github.com/opercoder/Kubernetes/blob/main/HowTo_Install.md)__  
 How to install a K8s cluster with ansibles playbooks.
+1. __[HowTo DeleteNode](https://github.com/opercoder/Kubernetes/blob/main/HowTo_Delete.md)__  
+How to install a K8s cluster with ansibles playbooks.
 2. __[Common definitions](https://github.com/opercoder/Kubernetes/blob/main/Common%20definitions.md)__  
 There are definitions of so main elements as node, pod, replication controller and so on.
 1. __[Common commands](https://github.com/opercoder/Kubernetes/blob/main/Common_commands.md)__  
