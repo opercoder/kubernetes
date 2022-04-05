@@ -73,4 +73,5 @@ kubectl logs <pod_name> -c <container_name>
 ``` bash
 kubectl exec <pod_name> -- <command>
 kubectl exec kubia-ddwrt -- curl -s http://10.105.26.216
+kubectl exec <pod_name> -c <container_name> -ti -- /bin/bash
 ```
