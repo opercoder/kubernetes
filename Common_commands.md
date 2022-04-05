@@ -75,3 +75,7 @@ kubectl exec <pod_name> -- <command>
 kubectl exec kubia-ddwrt -- curl -s http://10.105.26.216
 kubectl exec <pod_name> -c <container_name> -ti -- /bin/bash
 ```
+12. **Delete immediately a pod**
+``` bash
+kubectl delete po <pod_name> --force --grace-period 0
+```
