@@ -1,24 +1,38 @@
 Example of yaml file:  
 ``` bash
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: kubia
+  name: zabbix-db
+  namespace: dev
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: kubia
+      app: zabbix-db
   template:
     metadata:
+      name: zabbix-db
       labels:
-        app: kubia
+        type: monitoring
+        app: zabbix-db
+        env: dev
+      annotations:
+        application: "PostgreSQL-14 with TimescaleDB for Zabbix"
     spec:
       containers:
-      - name: kubia
-        image: luksa/kubia
-        ports:
-        - containerPort: 8080
+      - name: zabbix-db
+        image: registry.sirius.mix/timescaledb_for_zabbix
+        env:
+        - name: POSTGRES_USER
+          value: "user"
+        - name: POSTGRES_PASSWORD
+          value: "password"
+        readinessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 30
+          periodSeconds: 30
 ```
 1. **Show info abouut ReplicaSet.**
 ``` bash
