@@ -39,5 +39,8 @@ A PersistentVolumeClaim (PVC) is a request for storage by a user. It is similar 
 ### ConfigMaps
 A ConfigMap is an API object used to store non-confidential data in key-value pairs. Pods can consume ConfigMaps as environment variables, command-line arguments, or as configuration files in a volume.  
 A ConfigMap allows you to decouple environment-specific configuration from your container images, so that your applications are easily portable.
+### Deployment
+A Deployment provides declarative updates for Pods and ReplicaSets.  
+You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.  
 ***
 _This info from https://kubernetes.io/docs/._
