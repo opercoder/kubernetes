@@ -42,7 +42,11 @@ kubectl apply -f zabbix-db.yaml --record
 ``` bash
 kubectl rollout status deployment zabbix-db -n dev
 ```
-3. **Roll back the roll out.**
+3. **Roll back the rollout.**
+``` bash
+kubectl rollout undo deployment zabbix-db -n dev
+```
+4. **Roll back the rollout.**
 ``` bash
 kubectl rollout undo deployment zabbix-db -n dev
 ```
