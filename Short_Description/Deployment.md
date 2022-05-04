@@ -34,17 +34,15 @@ spec:
           initialDelaySeconds: 30
           periodSeconds: 30
 ```
-1. **Show info abouut ReplicaSet.**
+1. **Create a rollout with a record in a history.**
 ``` bash
-kubectl get rs
-kubectl describe rs
+kubectl apply -f zabbix-db.yaml --record
 ```
-2. **Other variants of selector.**
+2. **Show a status of the rollout.**
 ``` bash
-  selector:
-    matchExpressions:
-      - key: app
-        operator: In (NotIn, Exists, DoesNotExist)
-        values:
-          - kubia
+kubectl rollout status deployment zabbix-db -n dev
+```
+3. **Roll back the roll out.**
+``` bash
+kubectl rollout undo deployment zabbix-db -n dev
 ```
