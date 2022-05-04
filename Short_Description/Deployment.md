@@ -7,6 +7,12 @@ metadata:
   namespace: dev
 spec:
   replicas: 1
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   selector:
     matchLabels:
       app: zabbix-db
@@ -46,7 +52,15 @@ kubectl rollout status deployment zabbix-db -n dev
 ``` bash
 kubectl rollout undo deployment zabbix-db -n dev
 ```
-4. **Roll back the rollout.**
+4. **Show a history of rollouts.**
 ``` bash
-kubectl rollout undo deployment zabbix-db -n dev
+kubectl rollout history deployment zabbix-db -n dev
+```
+5. **Roll back to the defined rollout.**
+``` bash
+kubectl rollout undo deployment zabbix-db --to-revision=5 -n dev
+```
+6. **Pause/resume the rollout.**
+``` bash
+kubectl rollout/resume pause deployment zabbix-db -n dev
 ```
