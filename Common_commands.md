@@ -79,3 +79,17 @@ kubectl exec <pod_name> -c <container_name> -ti -- /bin/bash
 ``` bash
 kubectl delete po <pod_name> --force --grace-period 0
 ```
+13. Change objects with _kubectl_:  
+**edit** - open a manifest in an editor, then update the object.  
+_kubectl edit deployment zabbix-db_  
+**patch** - modify particular features.  
+_kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'_  
+_kubectl patch deployment patch-demo --patch-file patch-file.yaml_  
+_kubectl patch deployment zabbix-db -p '{"spec":{"template":{"spec":{"containers":\[{"name": "nodejs", "image": "luksa/kubia:v2"}\]}}}}'_  
+**apply** - modify an object from file _yaml_ or _json_.  
+_kubectl apply -f zabbix-db.yaml_  
+**replace** - replace an object from file _yaml_ or _json_.  
+_kubectl replace -f zabbix-db.yaml_  
+**set image**   - modify an object from file _yaml_ or _json_.  
+_kubectl set image deployment zabbix-db zabbix_db=registry.local/timescaledb_for_zabbix:v2_  
+```
