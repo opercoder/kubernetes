@@ -157,3 +157,14 @@ spec:
       - key: my-nginx-config.conf
         path: gzip.conf
  ```
+15. **First start init container, then main container is started**
+``` bash
+spec:
+  initContainers:
+  - name: init
+    image: registry.local/busybox
+    command:
+    - sh
+    - -c
+    - 'while true; do echo "Waiting for postgre to come up..."; nc -z zabbix-db-service 25432 && break; sleep 1; done; echo "Postgre is up!>
+```
