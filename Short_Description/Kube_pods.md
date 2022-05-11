@@ -166,5 +166,5 @@ spec:
     command:
     - sh
     - -c
-    - 'while true; do echo "Waiting for postgre to come up..."; nc -z zabbix-db-service 25432 && break; sleep 1; done; echo "Postgre is up!>
+    - 'while true; do echo "Waiting for postgre to come up..."; nc -z zabbix-db-service 25432 && break; sleep 1; done; echo "Postgre is up!"'
 ```
