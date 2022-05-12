@@ -29,7 +29,7 @@ ansible-playbook kubernetes_install.yml
     - name: Установка докер
       shell: apt-get install -y docker-ce docker-ce-cli containerd.io
     - name: Установка пакетов Kubernetes
-      shell: apt-get install -y kubelet kubeadm kubectl --allow-change-held-packages
+      shell: apt-get install -y kubelet=1.23.5-00 kubeadm=1.23.5-00 kubectl=1.23.5-00 --allow-change-held-packages
     - name: Запрещаем обновлять Kubernetes
       shell: apt-mark hold kubelet kubeadm kubectl
     - name: Для докера
