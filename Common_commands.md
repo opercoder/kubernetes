@@ -87,23 +87,23 @@ kubectl delete -f ./pod.json
 ``` bash
 kubectl delete -k dir
 ```  
-    # Delete pods and services with same names "baz" and "foo"**
+12.4 **Delete pods and services with same names "baz" and "foo"**
 ``` bash
 kubectl delete pod,service baz foo
 ```  
-12.4 **Delete pods and services with label name=myLabel**
+12.5 **Delete pods and services with label name=myLabel**
 ``` bash
 kubectl delete pods,services -l name=myLabel
 ``` 
-12.5 **Delete a pod with minimal delay**
+12.6 **Delete a pod with minimal delay**
 ``` bash
 kubectl delete pod foo --now
 ```  
-12.6 **Force delete a pod on a dead node**
+12.7 **Force delete a pod on a dead node**
 ``` bash
 kubectl delete pod foo --force
 ```  
-12.7 **Delete all pods**
+12.8 **Delete all pods**
 ``` bash
 kubectl delete pods --all
 ```
