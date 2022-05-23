@@ -75,9 +75,37 @@ kubectl exec <pod_name> -- <command>
 kubectl exec kubia-ddwrt -- curl -s http://10.105.26.216
 kubectl exec <pod_name> -c <container_name> -ti -- /bin/bash
 ```
-12. **Delete immediately a pod**
+12.1 **Delete immediately a pod**
 ``` bash
 kubectl delete po <pod_name> --force --grace-period 0
+```
+12.2 **Delete a pod using the type and name specified in pod.json**
+``` bash
+kubectl delete -f ./pod.json
+```
+12.3 **Delete resources from a directory containing kustomization.yaml - e.g. dir/kustomization.yaml**
+``` bash
+kubectl delete -k dir
+```  
+    # Delete pods and services with same names "baz" and "foo"**
+``` bash
+kubectl delete pod,service baz foo
+```  
+12.4 **Delete pods and services with label name=myLabel**
+``` bash
+kubectl delete pods,services -l name=myLabel
+``` 
+12.5 **Delete a pod with minimal delay**
+``` bash
+kubectl delete pod foo --now
+```  
+12.6 **Force delete a pod on a dead node**
+``` bash
+kubectl delete pod foo --force
+```  
+12.7 **Delete all pods**
+``` bash
+kubectl delete pods --all
 ```
 13. Change objects with _kubectl_:  
 **edit** - open a manifest in an editor, then update the object.  
