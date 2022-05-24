@@ -84,6 +84,20 @@ Then apply:
 ``` bash
 kubectl apply -f deploy.yaml
 ```
+Create default ingress class:
+``` bash
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+  name: default-ingress-class
+  namespace: dev
+  annotations:
+    ingressclass.kubernetes.io/is-default-class: "true"
+spec:
+  controller: k8s.io/ingress-nginx
+```
 ### 3.1 Nginx configuration:  
 ``` bash
 upstream kube-http {
@@ -118,4 +132,22 @@ server {
 }
 ```
 ### 3.2 Ingress configuration:
-
+``` bash
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: dev
+spec:
+  rules:
+  - host: zbx.domain
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: zabbix-web
+            port:
+              number: 80
+```
