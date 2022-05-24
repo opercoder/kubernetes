@@ -86,40 +86,35 @@ kubectl apply -f deploy.yaml
 ```
 ### 3.1 Nginx configuration:  
 ``` bash
+upstream kube-http {
+	least_conn;
+	server es-1.domain:30080;
+	server es-2.domain:30080;
+	server es-3.domain:30080;
+	server kube-4.domain:30080;
+	server kube-5.domain:30080;
+	server kube-6.domain:30080;
+}
+
 server {
   listen 443 ssl;
-  server_name zbx.sirius.mix;
+  server_name zbx.domain;
    
   gzip on;
   gzip_comp_level 5;
-  
+  client_max_body_size 2000M;
+
   location / {
-    proxy_pass http://zbx.sirius.mix:5080;
+    proxy_pass http://kube-http;
     proxy_redirect off;
     proxy_buffering off;
     proxy_http_version 1.1;
-    proxy_set_header X-Forwarded-Proto https;
+    proxy_set_header X-Forwarded-Proto http;
     proxy_set_header Connection "Keep-Alive";
     proxy_set_header Proxy-Connection "Keep-Alive";
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header Host $host;
   }
-}
-
-server {
-        listen 5080;
-        location / {
-                proxy_pass http://kube-http;
-        }
-}
-upstream kube-http {
-        least_conn;
-        server controlplane-1.domain:30080;
-        server controlplane-2.domain:30080;
-        server controlplane-3.domain:30080;
-        server workernode-1.domain:30080;
-        server workernode-2.domain:30080;
-        server workernode-3.domain:30080;
 }
 ```
 ### 3.2 Ingress configuration:
