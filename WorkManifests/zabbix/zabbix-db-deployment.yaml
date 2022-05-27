@@ -40,7 +40,7 @@ spec:
     spec:
       containers:
       - name: zabbix-db
-        image: registry.sirius.mix/timescaledb_for_zabbix
+        image: registry.local/timescaledb_for_zabbix
         resources:
           requests:
             cpu: 4
