@@ -1,0 +1,100 @@
+###################################
+###    PVC
+###################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zabbix-server
+  namespace: dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ceph-sc
+---
+###################################
+###    Deployment
+###################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-server
+  template:
+    metadata:
+      name: zabbix-server
+      labels:
+        type: monitoring
+        app: zabbix-server
+        sys: zabbix
+        env: dev
+      annotations:
+        application: "Zabbix Server PgSQL v6.0.3"
+    spec:
+      initContainers:
+      - name: init
+        image: registry.local/busybox
+        command:
+        - sh
+        - -c
+        - 'while true; do echo "Waiting for postgre to come up..."; nc -z zabbix-db 5432 && break; sleep 1; done; echo "Postgre is up!"'
+      containers:
+      - name: zabbix-server
+        image: registry.local/zabbix_server
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1
+            memory: 500Mi
+        ports:
+        - name: zbx
+          containerPort: 10051
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: zabbix-secret
+              key: login_db
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: zabbix-secret
+              key: password_db
+        envFrom:
+        - configMapRef:
+            name: zabbix-configmap
+        volumeMounts:
+        - name: zabbix-server-scripts
+          mountPath: /usr/lib/zabbix/externalscripts/
+        readinessProbe:
+          tcpSocket:
+            port: 10051
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      volumes:
+      - name: zabbix-server-scripts
+        persistentVolumeClaim:
+          claimName: zabbix-server
+---
+###################################
+###    Service
+###################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-server
+  namespace: dev
+spec:
+  ports:
+  - name: zbx
+    port: 10051
+    targetPort: zbx
+  selector:
+    app: zabbix-server
