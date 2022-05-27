@@ -1,0 +1,91 @@
+###########################################
+###   PVC
+###########################################
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: zabbix-db
+  namespace: dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: ceph-sc
+---
+###########################################
+###   Deployment
+###########################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-db
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-db
+  template:
+    metadata:
+      name: zabbix-db
+      labels:
+        type: monitoring
+        app: zabbix-db
+        sys: zabbix
+        env: dev
+      annotations:
+        application: "PostgreSQL-14 with TimescaleDB for Zabbix"
+    spec:
+      containers:
+      - name: zabbix-db
+        image: registry.sirius.mix/timescaledb_for_zabbix
+        resources:
+          requests:
+            cpu: 4
+            memory: 8Gi
+        ports:
+        - name: pg
+          containerPort: 5432
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: zabbix-secret
+              key: login_db
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: zabbix-secret
+              key: password_db
+        - name: TIMESCALEDB_TELEMETRY
+          value: "off"
+        volumeMounts:
+        - name: zabbix-db-data
+          mountPath: /var/lib/postgresql/
+        readinessProbe:
+          tcpSocket:
+            port: 5432
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      volumes:
+      - name: zabbix-db-data
+        persistentVolumeClaim:
+          claimName: zabbix-db
+---
+###########################################
+###   Service
+###########################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-db
+  namespace: dev
+spec:
+  ports:
+  - name: pg
+    port: 5432
+    targetPort: pg
+  selector:
+    app: zabbix-db
