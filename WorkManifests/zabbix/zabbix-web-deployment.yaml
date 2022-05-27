@@ -1,0 +1,91 @@
+####################################
+###       Deployment
+####################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-web
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-web
+  template:
+    metadata:
+      name: zabbix-web
+      labels:
+        type: monitoring
+        app: zabbix-web
+        sys: zabbix
+        env: dev
+      annotations:
+        application: "Zabbix WebServer Nginx v6.0.3"
+    spec:
+      initContainers:
+      - name: init
+        image: registry.local/busybox
+        command:
+        - sh
+        - -c
+        - 'while true; do echo "Waiting for zabbix to come up..."; nc -z zabbix-server 10051 && break; sleep 1; done; echo "Zabbix server is up!"'
+      containers:
+      - name: zabbix-web
+        image: registry.local/zabbix_web
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: 1
+            memory: 500Mi
+        ports:
+        - name: zbx-web
+          containerPort: 8080
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: zabbix-secret
+              key: login_db
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: zabbix-secret
+              key: password_db
+        - name: ZBX_SERVER_HOST
+          value: "zabbix-server"
+        - name: ZBX_SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: zabbix-configmap
+              key: ZBX_SERVER_PORT
+        - name: DB_SERVER_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: zabbix-configmap
+              key: DB_SERVER_HOST
+        - name: DB_SERVER_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: zabbix-configmap
+              key: DB_SERVER_PORT
+        readinessProbe:
+          tcpSocket:
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 30
+---
+####################################
+###       Service
+####################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-web
+  namespace: dev
+spec:
+  ports:
+  - name: zbx-web
+    port: 80
+    targetPort: zbx-web
+  selector:
+    app: zabbix-web
