@@ -61,6 +61,10 @@ In the **deploy.yml** make changes:
 ``` bash
 spec:
   externalTrafficPolicy: Cluster <---- CHANGE
+  externalIPs:
+  - 10.254.10.134
+  - 10.254.10.135
+  - 10.254.10.136
   ports:
   - appProtocol: http
     name: http
@@ -102,9 +106,6 @@ spec:
 ``` bash
 upstream kube-http {
 	least_conn;
-	server es-1.domain:30080;
-	server es-2.domain:30080;
-	server es-3.domain:30080;
 	server kube-4.domain:30080;
 	server kube-5.domain:30080;
 	server kube-6.domain:30080;
