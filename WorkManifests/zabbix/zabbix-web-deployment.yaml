@@ -53,21 +53,9 @@ spec:
               key: password_db
         - name: ZBX_SERVER_HOST
           value: "zabbix-server"
-        - name: ZBX_SERVER_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: zabbix-configmap
-              key: ZBX_SERVER_PORT
-        - name: DB_SERVER_HOST
-          valueFrom:
-            configMapKeyRef:
-              name: zabbix-configmap
-              key: DB_SERVER_HOST
-        - name: DB_SERVER_PORT
-          valueFrom:
-            configMapKeyRef:
-              name: zabbix-configmap
-              key: DB_SERVER_PORT
+        envFrom:
+        - configMapRef:
+            name: zabbix-configmap
         readinessProbe:
           tcpSocket:
             port: 8080
