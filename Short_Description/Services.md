@@ -139,6 +139,8 @@ kind: Ingress
 metadata:
   name: ingress
   namespace: dev
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "1000m"
 spec:
   rules:
   - host: zbx.domain
