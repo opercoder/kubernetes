@@ -1,3 +1,5 @@
+https://home.robusta.dev/blog/stop-using-cpu-limits
+
 1. __[HowTo Install K8s](https://github.com/opercoder/Kubernetes/blob/main/HowTo_Install.md)__  
 How to install a K8s cluster with ansibles playbooks.
 1. __[HowTo DeleteNode](https://github.com/opercoder/Kubernetes/blob/main/HowTo_Delete.md)__  
